@@ -66,3 +66,16 @@ button:active {
 button:focus {
   outline: none;
 }
+
+.history {
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+#history {
+  font-size: 14px;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+}

@@ -1,6 +1,8 @@
 let currentInput = ""; // Menyimpan input angka saat ini yang dimasukkan oleh pengguna
 let operator = ""; // Menyimpan operator matematika yang dipilih pengguna (+, -, *, /)
 let previousInput = ""; // Menyimpan angka sebelumnya yang digunakan dalam operasi
+let history = []; // Menyimpan riwayat perhitungan dalam array
+
 
 // Fungsi untuk menambahkan angka yang dipilih pengguna ke input saat ini
 function appendNumber(number) {
@@ -20,6 +22,7 @@ function setOperator(op) {
   operator = op; // Menyimpan operator yang dipilih
   previousInput = currentInput; // Menyimpan currentInput sebagai angka sebelumnya
   currentInput = ""; // Mengosongkan currentInput agar pengguna dapat mengetik angka berikutnya
+  updateDisplay(previousInput + " " + operator); // Memperbarui tampilan untuk menampilkan angka sebelumnya dan operator
 }
 
 // Fungsi untuk melakukan perhitungan berdasarkan operator dan input yang diberikan
@@ -52,7 +55,12 @@ function calculate() {
   previousInput = result; // Menyimpan hasil sebagai previousInput untuk perhitungan berikutnya
   currentInput = result.toString(); // Mengubah hasil ke string dan menyimpannya di currentInput
   operator = ""; // Mengosongkan operator setelah perhitungan selesai
-} 
+    // Menyimpan riwayat perhitungan
+    history.push(`${previousInput} ${operator} ${currentInput} = ${result}`);
+    updateHistoryDisplay(); // Memperbarui tampilan riwayat
+  }
+
+
 
 // Fungsi untuk membersihkan layar kalkulator dan mengatur ulang semua input
 function clearDisplay() {
@@ -60,4 +68,17 @@ function clearDisplay() {
   previousInput = ""; // Mengosongkan input sebelumnya
   operator = ""; // Mengosongkan operator
   updateDisplay(""); // Mengosongkan tampilan kalkulator
+}
+
+// Fungsi untuk memperbarui tampilan riwayat perhitungan
+function updateHistoryDisplay() {
+  const historyContainer = document.getElementById("history");
+  historyContainer.innerHTML = ""; // Mengosongkan tampilan riwayat sebelumnya
+  
+  // Menampilkan riwayat perhitungan terbaru
+  for (let i = 0; i < history.length; i++) {
+    const historyItem = document.createElement("div");
+    historyItem.textContent = history[i]; // Menampilkan perhitungan dalam riwayat
+    historyContainer.appendChild(historyItem); // Menambahkan item ke container riwayat
+  }
 }
