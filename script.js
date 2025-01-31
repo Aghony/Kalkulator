@@ -20,6 +20,14 @@ function setOperator(op) {
   if (currentInput === "") return; // Jika input saat ini kosong, tidak melakukan apa-apa
   if (previousInput !== "") calculate(); // Jika sebelumnya ada input, hitung hasilnya dulu
   operator = op; // Menyimpan operator yang dipilih
+
+  // Mengubah simbol operator untuk tampilan
+  if (operator === "*") {
+    operator = "x"; // Ganti * menjadi x
+  } else if (operator === "/") {
+    operator = "÷"; // Ganti / menjadi ÷
+  }
+
   previousInput = currentInput; // Menyimpan currentInput sebagai angka sebelumnya
   currentInput = ""; // Mengosongkan currentInput agar pengguna dapat mengetik angka berikutnya
   updateDisplay(previousInput + " " + operator); // Memperbarui tampilan untuk menampilkan angka sebelumnya dan operator
@@ -33,34 +41,33 @@ function calculate() {
   const num2 = parseFloat(currentInput); // Mengonversi currentInput ke angka
   let result; // Menyimpan hasil perhitungan
 
- // Melakukan perhitungan berdasarkan operator yang dipilih
+  // Melakukan perhitungan berdasarkan operator yang dipilih
   switch (operator) {
     case "+":
-      result = num1 + num2; //Penjumlahan
+      result = num1 + num2; // Penjumlahan
       break;
     case "-":
-      result = num1 - num2; //Pengurangan
+      result = num1 - num2; // Pengurangan
       break;
-    case "*":
-      result = num1 * num2; //Perkalian
+    case "x": 
+      result = num1 * num2; // Perkalian
       break;
-    case "/":
+    case "÷": 
       result = num2 === 0 ? "error" : num1 / num2; // Pembagian, jika pembagi 0 maka tampilkan error
       break;
     default:
       return; // Jika operator tidak valid, keluar dari fungsi
   }
 
+  // Menyimpan riwayat dengan format yang benar sebelum mengosongkan operator
+  history.push(`${previousInput} ${operator} ${currentInput} = ${result}`);
+  updateHistoryDisplay(); // Memperbarui tampilan riwayat
+
   updateDisplay(result); // Memperbarui tampilan dengan hasil perhitungan
   previousInput = result; // Menyimpan hasil sebagai previousInput untuk perhitungan berikutnya
   currentInput = result.toString(); // Mengubah hasil ke string dan menyimpannya di currentInput
   operator = ""; // Mengosongkan operator setelah perhitungan selesai
-    // Menyimpan riwayat perhitungan
-    history.push(`${previousInput} ${operator} ${currentInput} = ${result}`);
-    updateHistoryDisplay(); // Memperbarui tampilan riwayat
-  }
-
-
+}
 
 // Fungsi untuk membersihkan layar kalkulator dan mengatur ulang semua input
 function clearDisplay() {
