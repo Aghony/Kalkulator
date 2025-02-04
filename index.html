@@ -13,29 +13,33 @@
       <input type="text" id="display" disabled>
     </div>
     <div class="buttons">
+      <button onclick="clearAllDisplay('ca')">AC</button>
+      <button onclick="clearEntry()">C</button>
+      <button onclick="setOperator('%')">%</button>
+      <button onclick="setOperator('/')">÷</button>
       <!-- Rows 1 -->
       <button onclick="appendNumber('7')">7</button>
       <button onclick="appendNumber('8')">8</button>
       <button onclick="appendNumber('9')">9</button>
-      <button onclick="setOperator('/')">÷</button>
+      <button onclick="setOperator('*')">x</button>
 
       <!-- Rows 2 -->
       <button onclick="appendNumber('4')">4</button>
       <button onclick="appendNumber('5')">5</button>
       <button onclick="appendNumber('6')">6</button>
-      <button onclick="setOperator('*')">x</button>
+      <button onclick="setOperator('-')">-</button>
 
       <!-- Rows 3 -->
       <button onclick="appendNumber('1')">1</button>
       <button onclick="appendNumber('2')">2</button>
       <button onclick="appendNumber('3')">3</button>
-      <button onclick="setOperator('-')">-</button>
+      <button onclick="setOperator('+')">+</button>
 
       <!-- Rows 4 -->
-      <button onclick="clearDisplay()">C</button>
+      <button onclick="toggleSign()">-/+</button>
       <button onclick="appendNumber('0')">0</button>
-      <button onclick="calculate()">=</button>
-      <button onclick="setOperator('+')">+</button>
+      <button onclick="appendNumber(',')">,</button>
+      <button onclick="calculate('')">=</button>
     </div>
   </div>
 

@@ -3,11 +3,12 @@ let operator = ""; // Menyimpan operator matematika yang dipilih pengguna (+, -,
 let previousInput = ""; // Menyimpan angka sebelumnya yang digunakan dalam operasi
 let history = []; // Menyimpan riwayat perhitungan dalam array
 
-
 // Fungsi untuk menambahkan angka yang dipilih pengguna ke input saat ini
 function appendNumber(number) {
+  // Jika angka yang dimasukkan adalah koma dan sudah ada koma dalam currentInput, jangan lanjutkan
+  if (number === "," && currentInput.includes(",")) return;
   currentInput += number; // Menambahkan angka ke currentInput
-  updateDisplay(currentInput); // Memperbarui tampilan dengan nilai currentInput yang baru
+  updateDisplay(previousInput + operator + currentInput); // Memperbarui tampilan dengan nilai currentInput yang baru
 }
 
 // Fungsi untuk memperbarui tampilan kalkulator
@@ -16,11 +17,18 @@ function updateDisplay(value) {
 }
 
 // Fungsi untuk menetapkan operator yang dipilih oleh pengguna
+// Fungsi untuk menetapkan operator yang dipilih pengguna
 function setOperator(op) {
   if (currentInput === "") return; // Jika input saat ini kosong, tidak melakukan apa-apa
-  if (previousInput !== "") calculate(); // Jika sebelumnya ada input, hitung hasilnya dulu
-  operator = op; // Menyimpan operator yang dipilih
 
+  // Jika ada input sebelumnya, update operator langsung
+  if (currentInput !== "" && operator !== "") {
+    operator = op; // Ganti operator langsung
+    updateDisplay(currentInput + " " + operator); // Memperbarui tampilan dengan operator yang baru
+    return;
+  }
+
+  operator = op; // Menyimpan operator yang dipilih
   // Mengubah simbol operator untuk tampilan
   if (operator === "*") {
     operator = "x"; // Ganti * menjadi x
@@ -28,10 +36,18 @@ function setOperator(op) {
     operator = "÷"; // Ganti / menjadi ÷
   }
 
+  // Mengenai persen (%)
+  if (operator === "%") {
+    currentInput = (parseFloat(currentInput) * 0.01).toString();
+    updateDisplay(currentInput);
+    return;
+  }
+
   previousInput = currentInput; // Menyimpan currentInput sebagai angka sebelumnya
   currentInput = ""; // Mengosongkan currentInput agar pengguna dapat mengetik angka berikutnya
-  updateDisplay(previousInput + " " + operator); // Memperbarui tampilan untuk menampilkan angka sebelumnya dan operator
+  updateDisplay(previousInput + " " + operator); // Memperbarui tampilan dengan angka sebelumnya dan operator
 }
+
 
 // Fungsi untuk melakukan perhitungan berdasarkan operator dan input yang diberikan
 function calculate() {
@@ -49,10 +65,10 @@ function calculate() {
     case "-":
       result = num1 - num2; // Pengurangan
       break;
-    case "x": 
+    case "x":
       result = num1 * num2; // Perkalian
       break;
-    case "÷": 
+    case "÷":
       result = num2 === 0 ? "error" : num1 / num2; // Pembagian, jika pembagi 0 maka tampilkan error
       break;
     default:
@@ -77,15 +93,43 @@ function clearDisplay() {
   updateDisplay(""); // Mengosongkan tampilan kalkulator
 }
 
+// Fungsi untuk membersihkan layar kalkulator, input, dan riwayat
+function clearAllDisplay() {
+  currentInput = ""; // Mengosongkan input saat ini
+  previousInput = ""; // Mengosongkan input sebelumnya
+  operator = ""; // Mengosongkan operator
+  history = []; // Mengosongkan riwayat
+  updateDisplay(""); // Mengosongkan tampilan kalkulator
+  updateHistoryDisplay(); // Mengosongkan tampilan riwayat
+}
+
+// Fungsi untuk membersihkan input angka saat ini (Clear Entry)
+function clearEntry() {
+  previousInput = ""; // mengosongkan Input saat ini
+  updateDisplay(""); // Mengosongkan tampilan kalkulator
+}
+
 // Fungsi untuk memperbarui tampilan riwayat perhitungan
 function updateHistoryDisplay() {
   const historyContainer = document.getElementById("history");
   historyContainer.innerHTML = ""; // Mengosongkan tampilan riwayat sebelumnya
-  
+
+  // Menampilkan riwayat perhitungan terbaru (menampilkan maksimal 5 riwayat)
+  const maxHistoryLength = 5;
+  const startIndex = Math.max(0, history.length - maxHistoryLength); // Memastikan hanya 5 riwayat terakhir yang ditampilkan
+
   // Menampilkan riwayat perhitungan terbaru
-  for (let i = 0; i < history.length; i++) {
+  for (let i = startIndex; i < history.length; i++) {
     const historyItem = document.createElement("div");
     historyItem.textContent = history[i]; // Menampilkan perhitungan dalam riwayat
     historyContainer.appendChild(historyItem); // Menambahkan item ke container riwayat
+  }
+}
+
+// Fungsi untuk mengubah tanda angka saat ini (positif ke negatif atau sebaliknya)
+function toggleSign() {
+  if (currentInput !== "") {
+    currentInput = (parseFloat(currentInput) * -1).toString(); // Mengalikan dengan -1 untuk mengubah tanda
+    updateDisplay(currentInput); // Memperbarui tampilan dengan nilai yang baru
   }
 }
