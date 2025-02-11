@@ -1,81 +1,106 @@
+/* Gaya global untuk elemen body */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+  font-family: Arial, sans-serif; /* Menetapkan font menjadi Arial atau sans-serif */
+  background-color: #f4f4f9; /* Warna latar belakang abu-abu terang untuk halaman */
+  display: flex; /* Menggunakan flexbox untuk tata letak */
+  justify-content: center; /* Menyusun konten secara horizontal di tengah */
+  align-items: center; /* Menyusun konten secara vertikal di tengah */
+  height: 100vh; /* Tinggi halaman mengambil seluruh tinggi viewport */
+  margin: 0; /* Menghapus margin default dari body */
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Agar kontennya berada di tengah layar */
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px; /* Beri jarak antara header dan kalkulator */
+}
+
+/* Gaya untuk kontainer kalkulator */
 .calculator {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  width: 300px;
-  text-align: center;
+  background-color: #ffffff; /* Warna latar belakang putih untuk kalkulator */
+  border-radius: 10px; /* Sudut membulat pada kontainer kalkulator */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Bayangan halus di sekitar kalkulator */
+  padding: 20px; /* Memberikan ruang dalam (padding) di sekitar konten kalkulator */
+  width: 300px; /* Lebar tetap untuk kalkulator */
+  text-align: center; /* Menyusun teks di tengah */
 }
 
+/* Gaya untuk judul kalkulator */
 .calculator h1 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  font-size: 1.5rem; /* Ukuran font untuk judul */
+  margin-bottom: 20px; /* Jarak bawah untuk memisahkan judul dengan elemen lainnya */
 }
 
+/* Gaya untuk area tampilan (display) */
 .display {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Jarak bawah untuk memberi ruang antara tampilan dan tombol */
 }
 
+/* Gaya untuk input tampilan */
 .display input {
-  width: 100%;
-  height: 50px;
-  font-size: 1.2rem;
-  text-align: right;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 5px 10px;
-  box-sizing: border-box;
-  background-color: #f9f9f9;
+  width: 100%; /* Lebar penuh agar input menyesuaikan kontainer */
+  height: 50px; /* Tinggi input */
+  font-size: 1.2rem; /* Ukuran font untuk input */
+  text-align: right; /* Menyusun angka di sebelah kanan */
+  border: 1px solid #ddd; /* Border abu-abu terang di sekitar input */
+  border-radius: 5px; /* Sudut membulat pada input */
+  padding: 5px 10px; /* Ruang dalam untuk input */
+  box-sizing: border-box; /* Memastikan padding dihitung dalam ukuran total elemen */
+  background-color: #f9f9f9; /* Warna latar belakang input yang sangat terang */
 }
 
+/* Gaya untuk tombol kalkulator */
 .buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  display: grid; /* Menggunakan grid untuk tata letak tombol */
+  grid-template-columns: repeat(4, 1fr); /* Membuat 4 kolom tombol dengan lebar yang sama */
+  gap: 10px; /* Jarak antar tombol */
 }
 
+/* Gaya untuk setiap tombol */
 button {
-  height: 50px;
-  font-size: 1.2rem;
-  color: white;
-  background-color: #007bff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  height: 50px; /* Tinggi tombol */
+  font-size: 1.2rem; /* Ukuran font tombol */
+  color: white; /* Warna teks tombol putih */
+  background-color: #007bff; /* Warna latar belakang biru tombol */
+  border: none; /* Menghapus border tombol */
+  border-radius: 5px; /* Sudut membulat pada tombol */
+  cursor: pointer; /* Menampilkan pointer saat hover */
+  transition: background-color 0.3s; /* Animasi transisi untuk perubahan warna */
 }
 
+/* Efek hover pada tombol */
 button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Warna biru lebih gelap saat tombol di-hover */
 }
 
+/* Efek active pada tombol saat diklik */
 button:active {
-  background-color: #004494;
+  background-color: #004494; /* Warna biru yang lebih gelap saat tombol ditekan */
 }
 
+/* Menghapus outline saat tombol mendapat fokus */
 button:focus {
   outline: none;
 }
 
+/* Gaya untuk area riwayat */
 .history {
-  margin-top: 20px;
-  border-top: 1px solid #ccc;
-  padding-top: 10px;
+  margin-top: 20px; /* Jarak atas untuk memberi ruang antara tombol dan riwayat */
+  border-top: 1px solid #ccc; /* Garis pemisah dengan warna abu-abu terang */
+  padding-top: 10px; /* Ruang dalam di bagian atas riwayat */
 }
 
+/* Gaya untuk menampilkan riwayat kalkulasi */
 #history {
-  font-size: 14px;
-  max-height: 200px;
-  overflow-y: auto;
-  margin-top: 10px;
+  font-size: 14px; /* Ukuran font untuk riwayat kalkulasi */
+  max-height: 200px; /* Batas tinggi maksimum untuk riwayat */
+  overflow-y: auto; /* Menambahkan scroll jika riwayat lebih panjang dari tinggi yang ditentukan */
+  margin-top: 10px; /* Jarak atas untuk memberi ruang antara garis pemisah dan riwayat */
 }
