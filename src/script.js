@@ -1,7 +1,6 @@
 let currentInput = ""; // Menyimpan input angka saat ini
 let previousInput = ""; // Menyimpan angka sebelumnya
 let operator = ""; // Menyimpan operator yang dipilih
-let history = []; // Menyimpan riwayat perhitungan
 
 // Fungsi untuk menambahkan angka ke input saat ini
 function appendNumber(number) {
@@ -14,8 +13,8 @@ function appendNumber(number) {
 function updateDisplay(value) {
   if (value === "") {
     document.getElementById("display").value = "0";
-  }else{
-  document.getElementById("display").value = value; // Update tampilan dengan input saat ini
+  } else {
+    document.getElementById("display").value = value; // Update tampilan dengan input saat ini
   }
 }
 
@@ -77,22 +76,18 @@ function calculate() {
       return;
   }
 
-  history.push(`${previousInput} ${operator} ${currentInput} = ${result}`); // Simpan riwayat
-  updateHistoryDisplay(); // Update tampilan riwayat
   updateDisplay(result); // Update tampilan dengan hasil perhitungan
   previousInput = result; // Simpan hasil sebagai previousInput untuk perhitungan berikutnya
   currentInput = result.toString(); // Ubah hasil ke string dan simpan ke currentInput
   operator = ""; // Reset operator setelah perhitungan selesai
 }
 
-// Fungsi untuk membersihkan layar kalkulator dan menghapus riwayat
+// Fungsi untuk membersihkan layar kalkulator
 function clearAllDisplay() {
   currentInput = ""; // Mengosongkan input saat ini
   previousInput = ""; // Mengosongkan input sebelumnya
   operator = ""; // Mengosongkan operator
-  history = []; // Menghapus riwayat perhitungan
   updateDisplay(""); // Mengosongkan tampilan kalkulator
-  updateHistoryDisplay(); // Mengosongkan tampilan riwayat
 }
 
 // Fungsi untuk membersihkan hanya input saat ini (Clear Entry)
@@ -112,23 +107,10 @@ function clearEntry() {
   updateDisplay(previousInput + operator + currentInput);
 }
 
-// Fungsi untuk memperbarui tampilan riwayat
-function updateHistoryDisplay() {
-  const historyContainer = document.getElementById("history");
-  historyContainer.innerHTML = ""; // Kosongkan tampilan riwayat
-
-  // Menampilkan riwayat perhitungan
-  history.forEach(item => {
-    const historyItem = document.createElement("div");
-    historyItem.textContent = item;
-    historyContainer.appendChild(historyItem);
-  });
-}
-
 // Fungsi untuk mengubah tanda angka (positif ke negatif atau sebaliknya)
 function toggleSign() {
   if (currentInput !== "") {
     currentInput = (parseFloat(currentInput) * -1).toString();
     updateDisplay(currentInput);
   }
-}
+} 
